@@ -22,9 +22,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _cancelar() {
-    _usuarioController.clear();
-    _senhaController.clear();
     setState(() {
+      _usuarioController.clear();
+      _senhaController.clear();
       _bemvindo = "";
     });
   }
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "$_bemvindo",
+                    "Bem Vindo!$_bemvindo",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,

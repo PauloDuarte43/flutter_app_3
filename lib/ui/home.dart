@@ -6,6 +6,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _usuarioController = new TextEditingController();
+  final TextEditingController _senhaController = new TextEditingController();
+  String _bemvindo = "";
+
+  void _exibeBemVindo() {
+    setState(() {
+      if (_usuarioController.text.isNotEmpty &&
+          _senhaController.text.isNotEmpty) {
+        debugPrint(_usuarioController.text);
+        debugPrint(_senhaController.text);
+        _bemvindo = _usuarioController.text;
+      }
+    });
+  }
+
+  void _cancelar() {
+    _usuarioController.clear();
+    _senhaController.clear();
+    setState(() {
+      _bemvindo = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +55,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _usuarioController,
                       decoration: InputDecoration(
                           hintText: "Nome",
                           border: OutlineInputBorder(
@@ -41,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _senhaController,
                       obscureText: true,
                       decoration: InputDecoration(
                           hintText: "Senha",
@@ -53,9 +78,8 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          //margin: const EdgeInsets.only(left: 38.0),
                           child: RaisedButton(
-                            onPressed: () => null,
+                            onPressed: _exibeBemVindo,
                             color: Colors.white,
                             child: Text(
                               "Entrar",
@@ -65,9 +89,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          //margin: const EdgeInsets.only(left: 100.0),
                           child: RaisedButton(
-                            onPressed: () => null,
+                            onPressed: _cancelar,
                             color: Colors.white,
                             child: Text(
                               "Cancelar",
@@ -81,7 +104,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "$_bemvindo",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
